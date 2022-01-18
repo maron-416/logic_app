@@ -97,13 +97,13 @@ function feedback(state,updateState){
             for(let i=0;i<state.shouko.length;i++){
                 text += '\n・' + state.shouko[i] + ''
             }
-            text += '以下の補助前提をもとにして';
+            text += '\n以下の補助前提をもとにして';
             for(let i=0;i<state.shouko.length;i++){
                 for(let j=0;j<state.hojozentei[i].length;j++){
                     text += '\n・'+state.hojozentei[i][j]
                 }
             }
-            text += '「' + state.kasetsu + '」という仮説を導いていますか';
+            text += '\n「' + state.kasetsu + '」という仮説を導いていますか';
             
             updateState('feedbacktext',text);
             break
