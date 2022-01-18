@@ -12,15 +12,18 @@ function feedback(state,updateState){
                 updateState('feedbacktext','証拠を入力してください');
                 break
             }
-            updateState('feedbacknum',state.feedbacknum+1)
+            updateState('feedbacknum',state.feedbacknum+2)
         case 2:
-            if(state.hojozentei[0][0]===''||state.hojozentei[0][0]==='補助前提'){
+          /*  if(state.hojozentei[0][0]===''||state.hojozentei[0][0]==='補助前提'){
                 updateState('feedbacktext','補助前提を入力してください');
                 break
             }
-            updateState('feedbacknum',state.feedbacknum+1)
+            updateState('feedbacknum',state.feedbacknum+1) */
         case 3:
-            text = '「' + state.kasetsu + '」という仮説は全ての証拠を説明していますか';
+            text = '「' + state.kasetsu + '」という仮説は以下の全ての証拠を説明していますか';
+            for(let i=0;i<state.shouko.length;i++){
+                text += '\n・'+state.shouko[i]
+            }
             updateState('feedbacktext',text);
             break
         case 4:
@@ -33,7 +36,7 @@ function feedback(state,updateState){
             updateState('feedbacktext',text);
             break  
         case 5:
-            text = '以下のすべての補助前提で用いられている全ての概念が説明されていますか';
+            text = '以下の補助前提で用いられている全ての概念が説明されていますか';
             for(let i=0;i<state.shouko.length;i++){
                 for(let j=0;j<state.hojozentei[i].length;j++){
                     text += '\n・'+state.hojozentei[i][j]
@@ -42,7 +45,7 @@ function feedback(state,updateState){
             updateState('feedbacktext',text);
             break  
         case 6:
-            text = '以下の仮説と補助前提で用いられている概念の関係が示されていますか\n' + state.kasetsu;
+            text = '以下の仮説と補助前提で用いられている概念の関係が示されていますか\n・' + state.kasetsu;
             for(let i=0;i<state.shouko.length;i++){
                 for(let j=0;j<state.hojozentei[i].length;j++){
                     text += '\n・'+state.hojozentei[i][j]
@@ -51,7 +54,7 @@ function feedback(state,updateState){
             updateState('feedbacktext',text);
             break 
         case 7:
-            text = '以下のすべての証拠と補助前提は正しい情報ですか';
+            text = '以下の全ての証拠と補助前提は正しい情報ですか';
             for(let i=0;i<state.shouko.length;i++){
                 text += '\n・'+state.shouko[i]
             }
@@ -76,27 +79,42 @@ function feedback(state,updateState){
             break 
         case 9:
             text = '「' + state.kasetsu + '」という仮説は';
+            text += '\n以下の補助前提をもとにして';
+            for(let i=0;i<state.shouko.length;i++){
+                for(let j=0;j<state.hojozentei[i].length;j++){
+                    text += '\n・'+state.hojozentei[i][j]
+                }
+            }
+            text += '\n以下の証拠を説明していますか';
+            for(let i=0;i<state.shouko.length;i++){
+                text += '\n・'+state.shouko[i] + ''
+            }
+            
+            updateState('feedbacktext',text);
+            break
+        case 10:
+            text = '以下の証拠は';
+            for(let i=0;i<state.shouko.length;i++){
+                text += '\n・' + state.shouko[i] + ''
+            }
             text += '以下の補助前提をもとにして';
             for(let i=0;i<state.shouko.length;i++){
                 for(let j=0;j<state.hojozentei[i].length;j++){
                     text += '\n・'+state.hojozentei[i][j]
                 }
             }
-            text += '以下の証拠を説明していますか';
-            for(let i=0;i<state.shouko.length;i++){
-                text += state.shouko[i] + ''
-            }
+            text += '「' + state.kasetsu + '」という仮説を導いていますか';
             
             updateState('feedbacktext',text);
             break
-        case 10:
-            text = '以下のすべての証拠を説明できる仮説は他に考えられませんか';
+        case 11:
+            text = '以下の全ての証拠を説明できる仮説は他に考えられませんか';
             for(let i=0;i<state.shouko.length;i++){
                 text += '\n・'+state.shouko[i]
             }
             updateState('feedbacktext',text);
             break 
-        case 11:
+        case 12:
             updateState('feedbacktext','全てのフィードバックを終えました。もう一度押すと最初のフィードバックに戻ります');
             break 
     }

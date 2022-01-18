@@ -94,7 +94,7 @@ function App() {
   }
 
   function deletehojozenteiList(index1,index2){
-    if(hojozenteiList[index1].length>1){
+    if(hojozenteiList[index1].length>0){
       console.log(index1,index2)
       state.hojozentei[index1].splice(index2,1);
       hojozenteiList[index1].splice(index2,1);
@@ -149,9 +149,6 @@ function App() {
         フィードバックを受ける
       </button>
       <p className="text">{state.feedbacktext}</p>
-      <button onClick={(e) => console.log(hojozenteiList)}>
-        ログ
-      </button>
     </div>
     
 {
