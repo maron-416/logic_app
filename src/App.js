@@ -27,14 +27,14 @@ const modalStyle = {
 
 function App() {
   const [state, setState] = useState({
-    modalOpen: false, //モーダル管理用
-    feedbacktext: '', //フェードバック表示用
-    feedbacknum:0,
-    shouko:['証拠'],
-    hojozentei:[['補助前提']],
-    kasetsu:'仮説',
-    shoukocnt:1,
-    hojozenteicnt:1,
+    modalOpen: false, //モーダル管理用(使用していません)
+    feedbacktext: '', //フィードバック表示用
+    feedbacknum:0, //何番目のフィードバックを表示するか管理用
+    shouko:['証拠'], //証拠の入力されている中身を保存
+    hojozentei:[['補助前提']], //補助前提の入力されている中身を保存
+    kasetsu:'仮説', //仮説の入力されている中身を保存
+    shoukocnt:1, //証拠の数を管理する
+    hojozenteicnt:1, //補助前提の数を管理する
   })
   const [shoukoList,setshoukoList] = useState([1])
   const [hojozenteiList, sethojozenteiList] = useState([[1]])
@@ -54,9 +54,6 @@ function App() {
   function addshoukoList(){
     updateState('shouko','証拠',shoukoList.length)
     updateState('hojozentei',['補助前提'],shoukoList.length)
-   /* for(let i=1;i<hojozenteiList[0].length;i++){
-      updateState('hojozentei','補助前提',shoukoList.length,i)
-    } */ //このfor文は正常に動作していればいらない
     hojozenteiList[shoukoList.length]=[state.hojozenteicnt+1];
     updateState('hojozenteicnt',state.hojozenteicnt+1);
     sethojozenteiList(Object.assign({},hojozenteiList));  
@@ -70,14 +67,11 @@ function App() {
 
   function addhojozenteiList(index){
     updateState('hojozentei','補助前提',index,hojozenteiList[index].length)
-   /* for(let i=0;i<shoukoList.length;i++){
-      updateState('hojozentei','補助前提',i,hojozenteiList[index].length)
-    } *///このfor文は正常に動作していればいらない 
     hojozenteiList[index][hojozenteiList[index].length] = state.hojozenteicnt+1;
     updateState('hojozenteicnt',state.hojozenteicnt+1);
     sethojozenteiList(Object.assign({},hojozenteiList));
    
-  //  console.log(hojozenteiLists);
+  //  console.log(hojozenteiLists);ログ表示
   }
 
   function deleteshoukoList(index){
@@ -85,8 +79,7 @@ function App() {
       state.shouko.splice(index,1);
       state.hojozentei.splice(index,1)
       shoukoList.splice(index,1);
-      // setshoukoList(Object.assign({},shoukoList));
-      // console.log(shoukoList)
+      // console.log(shoukoList)ログ
        hojozenteiList[index].splice(index,1);
        sethojozenteiList(Object.assign({},hojozenteiList));
     }

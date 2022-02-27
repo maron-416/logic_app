@@ -1,3 +1,5 @@
+// フィードバックに表示する文字列を更新する
+
 function feedback(state,updateState){
     let text='';
     switch(state.feedbacknum){
@@ -118,7 +120,7 @@ function feedback(state,updateState){
             updateState('feedbacktext','全てのフィードバックを終えました。もう一度押すと最初のフィードバックに戻ります');
             break 
     }
-    if(state.feedbacknum < 11 && state.feedbacknum > 2){
+    if(state.feedbacknum < 12 && state.feedbacknum > 2){
         updateState('feedbacknum',state.feedbacknum+1);
       }else{
         updateState('feedbacknum',0);
